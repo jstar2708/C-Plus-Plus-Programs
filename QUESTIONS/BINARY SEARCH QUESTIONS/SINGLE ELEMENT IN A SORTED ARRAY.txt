@@ -1,0 +1,118 @@
+QUESTION--->
+Find the element that appears once in sorted array 
+Given a sorted array arr[] of size N. Find the element that appears only once in the array. All other elements appear exactly twice. 
+
+Example 1:
+
+Input:
+N = 11
+arr[] = {1, 1, 2, 2, 3, 3, 4, 50, 50, 65, 65}
+Output: 4
+Explanation: 4 is the only element that 
+appears exactly once.
+
+APPROACH-->(Naive approach)
+Idea is to traverse the sorted array and for every element i maintain a count.
+If count==1 ,thats our element
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+int once(int arr[],int n){
+	int count = 0;
+	for(int i = 0;i<n;i++){
+		for(int j = 0;j<n;j++){
+			if(arr[i]==arr[j]){
+				count++;			TC-->O(n^2)
+			}
+		}
+		if(count==1){
+			return arr[i];
+		}
+	}
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+OPTIMIZED APPROACH--->
+USING BINARY SEARCH
+Idea is to find the breakpoint.Breakpoint is the point before which all elements are present twice.
+	   |
+Ex - {1, 1,| 2, 3, 3, 4, 4, 5, 5}
+      0  1 | 2  3  4  5  6  7  8
+LEFT SIDE   |	RIGHT SIDE
+
+
+so at index 1 there is a break point.
+There is an obervation 
+for left side-->
+1st instance of any element---even index
+2nd instance of any element---odd index
+for right side-->
+1st instance of any element---odd index
+2nd instance of any element---even index
+
+So, we will keep looking for the left side
+if we are at right side then move our search space to left side and if we are at
+left side then we just have to shrink our left side.
+
+CODE-->
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include<iostream>
+using namespace std;
+
+int once(int arr[],int n){
+	int low = 0;
+	int high = n-1;
+	while(low<=high){
+		int mid = (low+high)/2;
+		if(arr[mid]==arr[mid^1]{		//checking for left side--(if mid = 0 then mid^1 = 1 and mid = 3 then mid^1 = 2)
+			low = mid + 1;			//if 1st intance is at even and 2nd instance is at odd then shrink the left side
+		}
+		else{
+			high = mid - 1;
+		}
+	}
+	return arr[low];				//at last our low will be pointing to our non repeating element
+}
+
+TC--> O(logn)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

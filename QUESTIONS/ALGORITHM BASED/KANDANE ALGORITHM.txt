@@ -1,0 +1,59 @@
+QUESTION-->
+Given an array arr of N integers. Find the contiguous sub-array with maximum sum.
+
+Example 1:
+
+Input:
+N = 4
+arr[] = {-1,4,7,2}
+Output:
+13
+Explanation:
+Max subarray sum is 13
+of elements (4,7,2) which 
+is a contiguous subarray.
+Example 2:
+
+Input:
+N = 4
+arr[] = {-1,-2,-3,-4}
+Output:
+-1
+Explanation:
+Max subarray sum is -1 
+of element (-1)
+
+APPROACH-->
+We will initailize mx = arr[0] and max_sofar = arr[0];
+now we will iterate our array from 1 to n and check
+if adding arr[i] makes are max_sofar greater or not
+if it makes it greater then we will update 
+max_sofar = max_sofar + arr[i],
+if it makes it smaller than arr[i] then update max_sofar = arr[i]
+Ex->
+-1,4,7,2
+till i = 0 our max_sofar is -1 then for i = 1 if we add 4 to max_sofar then max_sofar becomes 3 which is less than arr[i] = 4
+so we will not add it and just update max_sofar = 4.
+at last of every iteration just update the mx = max(max_sofar,mx).
+CODE-->
+-------------------------------------------------------------------------------------------------------------------------------------------------
+int kadane(int arr[],int n){
+	int mx = arr[0];
+	int max_sofar = arr[0];
+	for(int i = 1;i<n;i++){					//TC=> O(n)
+		max_sofar = max(arr[i],max_sofar + arr[i]);
+		if(mx<max_sofar){
+			mx = max_sofar;
+		}
+	}
+	return mx;
+}
+------------------------------------------------------------------------------------------------------------------------------------------------
+//kadane's algorithm
+    /* So we are going to find the max sum till ith element and check if adding ith element
+    to max_sofar makes it greater or lesser than ith element.if greater then update max_sofar 
+    to max_sofar + arr[i];
+    else if max_sofar becomes less than arr[i] then just update max_sofar to arr[i].
+    after this check if max_sofar is greater than our max ,if yes then update our max to
+    max_sofar.
+    else leave it as it is. */

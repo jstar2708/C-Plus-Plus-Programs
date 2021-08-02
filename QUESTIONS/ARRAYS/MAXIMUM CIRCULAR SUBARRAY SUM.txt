@@ -1,0 +1,103 @@
+QUESTION-->
+Given an array arr[] of N integers arranged in a circular fashion. Your task is to find the maximum contiguous subarray sum.
+
+Example 1:
+
+Input:
+N = 7
+arr[] = {8,-8,9,-9,10,-11,12}
+Output:
+22
+Explanation:
+Starting from the last element
+of the array, i.e, 12, and 
+moving in a circular fashion, we 
+have max subarray as 12, 8, -8, 9, 
+-9, 10, which gives maximum sum 
+as 22.
+Example 2:
+
+Input:
+N = 8
+arr[] = {10,-3,-4,7,6,5,-4,-1}
+Output:
+23
+Explanation: Sum of the circular 
+subarray with maximum sum is 23
+
+APPROACH-->
+So there are basically two case-->
+1. the maximum subarray sum is found without wraping the array (i.e Non - wraping sum)
+2. the maximum subarray sum is found by wraping the array (i.e wraping sum)
+
+for 1st case we can simply find the subarray sum be kadane's algorithm and name the variable as non_wrapsum
+for 2nd case we have to subract sum of all elements from those elements which are not contributing (non_contri_elements) i.e
+the elements which are not included in maximum subarray (in example 1 =>> -11 is a non contributing element)
+so sum of non contributing elements can be found by changing the sign of array elements and then apply kadane's algorithm.
+so,
+non_contri_elements = -kadane(arr,n) //-ve sign because we had changed the sign of array so kadane algorithm would return 11 instead of -11.
+so finally,
+wrapsum = total_sum - non_contri_elements
+
+now if wrapsum == 0 then simply return non_wrapsum
+else return max(wrapsum,non_wrapsum)
+CODE-->
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+int kadane(int arr[],int n){
+	int mx = arr[0];
+	int max_sofar = arr[0];
+	for(int i = 1;i<n;i++){
+		max_sofar = max(arr[i],arr[i]+max_sofar);
+		mx = max(mx,max_sofar);
+	}
+	return mx;
+}
+
+
+
+
+
+int maxcircular(int arr[],int n){
+	int wrapsum;
+	int non_wrapsum = kadane(arr,n);
+	int total_sum = 0;
+	for(int i = 0;i<n;i++){
+		total_sum = total_sum + arr[i];
+		arr[i] = -arr[i];
+	}
+	int non_contri_element = -kadane(arr,n);
+	wrapsum = total_sum - non_contri_element;
+
+	if(wrapsum==0){
+		return non_wrapsum;
+	}
+	return max(wrapsum,non_wrapsum);
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

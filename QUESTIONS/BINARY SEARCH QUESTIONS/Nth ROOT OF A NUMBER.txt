@@ -1,0 +1,97 @@
+QUESTION-->
+Find nth root of a number.
+
+APPROACH-->
+The nth root of any number will lie in btw 1 and the number itself.(including decimal numbers)
+Now our search space is (1,number).
+As the nth root may be decimal we are going to use double instead of int.
+We will initalize 
+low = 1
+high = number
+Then we just have to implement binary search.
+make sure to use double where ever needed.
+
+n = power
+m = number
+
+CODE-->
+//basically we will be shrinking our search space in such a way that high and low we be equal to 3 decimal places
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+#include<bits/stdc++.h>
+using namespace std;
+
+double power(double number,int n){
+	double ans = 1.0;
+	for(int i = 1;i<=n;i++){
+		ans = ans*number;		//nth power of mid.
+	}
+return ans;
+}
+
+void nth_root(int n,int m){
+	double low = 1;
+	double high = m;
+	double eps = 1e-6;      //eps the decimal places upto which we want our ans.For upto Five places we have to set eps to 1e-6(one greater than 5).
+
+	while((high-low)>eps){
+		double mid = (low+high)/2.0;
+		if(power(mid,n)>m){
+			high = mid;		//High != mid -1 so that we can get the decimal numbers
+		}
+		else{
+			low = mid;		//Low != mid +1 so that we can get the decimal numbers
+		}	
+	}
+
+	cout<<low<<endl;		//we can print low or high because both are same upto 5 decimal places.
+	cout<<pow(m,(double)1.0/(double)n); 		//to check our ans.
+}
+
+
+int main(){
+int n,m;
+cin>>n>>m;
+nth_root(n,m);
+return 0;
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Time complexity ---> n*log(m*10^precision)
+
+precision is the the decimal places upto which we want our ans.(in our case 5)
+
+
+CODE FOR CHECKING IF Nth ROOT OF A NUMBER IS INTEGER OR NOT--
+
+we can implement the above approach as it is and at last just check it for int type.
+
+			OR
+we could modify above approach
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include<bits/stdc++.h>
+using namespace std;
+
+int nth_root(int n,int m){
+	int low = 1;
+	int high = m;
+	while(low<=high){
+		int mid = (low+high)/2;
+		if(pow(mid,n)>m){
+			high = mid - 1;		// high = mid - 1,As now we are only looking for an integer
+		}
+		else if(pow(mid,n)<m){
+			low = mid+1;		// low = mid +1,As now we are only looking for an integer
+		}
+		else{
+			return mid;
+		}
+	}
+	return -1;
+}
+
+int main(){
+int n,m;
+cin>>n>>m;
+cout<<nth_root(n,m);
+return 0;
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------

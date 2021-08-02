@@ -1,0 +1,13 @@
+Binary Search can be implemented in any monotonus function.
+A Monotonus function is a function which is stricly increasing of strictly decreasing.
+
+Example - 
+f(x) = x^2;		As value of x increases the the value of f(x) increases.
+
+1 2 3 4 97 542 1 14 ...This is not a monotonus function.
+
+1 2 4 7 9 15 5 6 .....This is a monotonus function and binary search can be implemented
+
+Search Space --- >>
+
+It is range in which the binary search has to be implemented.

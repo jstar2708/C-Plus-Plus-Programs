@@ -1,0 +1,57 @@
+QUESTION--->
+Implement pow(x,n) in log(n) time.
+
+Ex -
+X = 2 N = 10
+ANS = 1024
+
+X = 7 N = -4
+ANS = 0.0004164
+
+APPROACH--->
+simply calculate power by running a loop n times
+
+BETTER APPROACH--->
+
+USING FAST EXPONENTIATION ALGORITHM
+create an ans variable  (double type)
+check if power given is -ve, if yes then make it positive. We will at last return 1/(x^n).
+if the power is odd then ---> decrement it by 1 and multiply x to ans.
+else if power is even then ----> divide power by 2 and multiply the number to itself.
+continue this till n!=0.
+CODE---->
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+#include<iostream>
+using namespace std;
+
+double power(long long x,long long n){
+	double ans = 1;
+	long long n1 = n;
+	if(n<0){
+		n1 = -1*n;
+	}
+	while(n1>0){
+		if(n1%2==0){
+			n1 = n1/2;
+			x = x*x;
+		}
+		else{
+			n1 = n1 - 1;
+			ans = ans*x;
+		}
+	}
+	if(n<0){
+		return (double)1/(double)ans;		//if power is -ve then return 1/ans
+	}
+	return ans;
+}
+
+
+int main(){
+	long long x;
+	cin>>x;
+	long long n;
+	cin>>n;
+	cout<<power(x,n);
+	return 0;
+}
