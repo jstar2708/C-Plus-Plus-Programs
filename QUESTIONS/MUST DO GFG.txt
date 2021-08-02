@@ -452,4 +452,4 @@ Medium
 Ternary Search
 Binary Heap Operations
 LRU cache
-Trie | (Insert and Search)
+Trie  (Insert and Search)
