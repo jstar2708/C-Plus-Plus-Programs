@@ -61,9 +61,9 @@ int once(int arr[],int n){
 	int high = n-1;
 	while(low<=high){
 		int mid = (low+high)/2;
-		if(arr[mid]==arr[mid^1]{		//checking for left side--(if mid = 0 then mid^1 = 1 and mid = 3 then mid^1 = 2)
+		if( mid < n - 1 && arr[mid]==arr[mid^1]{		//checking for left side--(if mid = 0 then mid^1 = 1 and mid = 3 then mid^1 = 2)
 			low = mid + 1;			//if 1st intance is at even and 2nd instance is at odd then shrink the left side
-		}
+		}					// mid should be less than size -1 because there is a chance that mid + 1 may go out of index when last element is ans
 		else{
 			high = mid - 1;
 		}

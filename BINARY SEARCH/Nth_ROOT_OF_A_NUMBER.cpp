@@ -16,7 +16,7 @@ double eps = 1e-6;       //eps the decimal places upto which we want our ans.For
 
 while((high-low)>eps){
 	double mid = (low+high)/2.0;
-	if(power(mid,n)>m){
+	if(mid * mid >m){
 		high = mid;
 	}
 	else{
